@@ -23,8 +23,23 @@ def apply_temperature(logits, temperature):
         return logits
     return np.array(logits) / temperature
 
-# Step 3 - top_k_filter (not yet solved)
-# TODO: implement
+# Step 3 - top_k_filter
+import numpy as np
+
+
+def top_k_filter(logits: np.ndarray, k: int) -> np.ndarray:
+    if k >= logits.shape[-1]:
+        return logits
+    if k == 0:
+        return np.full_like(logits, -np.inf)
+
+    threshold = np.partition(logits, -k)[..., -k]
+    if logits.ndim == 1:
+        threshold = threshold.item()
+    else:
+        threshold = threshold[..., None]
+
+    return np.where(logits >= threshold, logits, -np.inf)
 
 # Step 4 - top_p_filter (not yet solved)
 # TODO: implement
