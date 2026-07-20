@@ -47,8 +47,10 @@ def top_k_filter(logits: np.ndarray, k: int) -> np.ndarray:
 # Step 5 - sample_from_probs (not yet solved)
 # TODO: implement
 
-# Step 6 - greedy_select (not yet solved)
-# TODO: implement
+# Step 6 - greedy_select
+def greedy_select(logits):
+    # TODO: return the index of the maximum logit (ties -> lowest index).
+    return np.argmax(logits)
 
 # Step 7 - build_vocab
 def build_vocab(corpus, special_tokens):
