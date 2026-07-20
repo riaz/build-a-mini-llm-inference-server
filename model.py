@@ -41,8 +41,37 @@ def top_k_filter(logits: np.ndarray, k: int) -> np.ndarray:
 
     return np.where(logits >= threshold, logits, -np.inf)
 
-# Step 4 - top_p_filter (not yet solved)
-# TODO: implement
+# Step 4 - top_p_filter
+import numpy as np 
+
+def top_p_filter(logits, p):
+    logits = np.asarray(logits, dtype=np.float64)
+    squeeze = logits.ndim == 1
+    if squeeze:
+        logits = logits[None, :]
+
+    shifted = logits - logits.max(axis=-1, keepdims=True)
+    exp = np.exp(shifted)
+    probs = exp / exp.sum(axis=-1, keepdims=True)
+
+    sorted_ids = np.argsort(-probs, axis=-1)
+    sorted_probs = np.take_along_axis(probs, sorted_ids, axis=-1)
+    cum_sum = np.cumsum(sorted_probs, axis=-1)
+
+    cutoff = (cum_sum >= p - 1e-12).argmax(axis=-1)
+
+    if p >= 1.0:
+        return logits[0] if squeeze else logits
+
+    result = np.full_like(logits, -np.inf)
+    B = logits.shape[0]
+    for i in range(B):
+        k = int(cutoff[i]) + 1
+        result[i, sorted_ids[i, :k]] = logits[i, sorted_ids[i, :k]]
+
+    if squeeze:
+        result = result[0]
+    return result
 
 # Step 5 - sample_from_probs (not yet solved)
 # TODO: implement
