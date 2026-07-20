@@ -50,8 +50,22 @@ def top_k_filter(logits: np.ndarray, k: int) -> np.ndarray:
 # Step 6 - greedy_select (not yet solved)
 # TODO: implement
 
-# Step 7 - build_vocab (not yet solved)
-# TODO: implement
+# Step 7 - build_vocab
+def build_vocab(corpus, special_tokens):
+    # TODO: build a character-level vocab; specials get the lowest ids, then sorted unique chars.
+    vocab = set()
+    for txt in corpus:
+        vocab = vocab.union(set(txt))
+    other_tokens = sorted(list(vocab))
+    tokens = special_tokens + other_tokens
+    
+    token_to_id = { tok: idx for idx, tok in enumerate(tokens)}
+    id_to_token = [tok for idx, tok in enumerate(tokens)]
+
+    return {
+        'token_to_id': token_to_id,
+        'id_to_token': id_to_token
+    }
 
 # Step 8 - encode_prompt (not yet solved)
 # TODO: implement

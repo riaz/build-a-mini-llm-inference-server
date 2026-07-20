@@ -16,7 +16,7 @@ python scaffold.py
 - [ ] **4.** top_p_filter
 - [ ] **5.** sample_from_probs
 - [ ] **6.** greedy_select
-- [ ] **7.** build_vocab
+- [x] **7.** build_vocab
 - [ ] **8.** encode_prompt
 - [ ] **9.** decode_tokens
 - [ ] **10.** embed_tokens
