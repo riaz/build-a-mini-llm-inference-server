@@ -136,7 +136,10 @@ import numpy as np
 
 def linear_projection(x, weight, bias=None):
     # TODO: Apply y = x @ weight + bias, with bias optional and broadcasting over leading axes.
-    return np.matmul(x, weight) + (bias if bias is not None else np.zeros(weight.shape[-1]))
+    out = np.matmul(x, weight) 
+    if bias is not None:
+        out += bias
+    return out
 
 # Step 12 - init_kv_cache (not yet solved)
 # TODO: implement
