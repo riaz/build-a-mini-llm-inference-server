@@ -172,7 +172,7 @@ def causal_attention(q, k, v, is_causal=True):
     Tq, D = q.shape
     Tk = k.shape[0]
 
-    scores = q @ k.T                      # (Tq, Tk)
+    scores = np.matmul(q, k.T)                      # (Tq, Tk)
     scores /= np.sqrt(D)
 
     if is_causal:
@@ -180,7 +180,7 @@ def causal_attention(q, k, v, is_causal=True):
         scores[mask] = -np.inf
 
     attn = stable_softmax(scores)         # (Tq, Tk)
-    return attn @ v                       # (Tq, D)
+    return np.matmul(attn, v)             # (Tq, D)
 
 # Step 15 - model_prefill (not yet solved)
 # TODO: implement
