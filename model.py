@@ -159,8 +159,8 @@ def append_kv(cache, k_new, v_new):
     # TODO: write k_new and v_new into the cache starting at cache['length'] and bump length.
     start = cache['length']
     t = k_new.shape[0]
-    cache['K'][start: start + t, :] = k_new
-    cache['V'][start: start + t, :] = v_new
+    cache['K'][start: start + t] = k_new
+    cache['V'][start: start + t] = v_new
     cache['length'] += t
     return cache
 
