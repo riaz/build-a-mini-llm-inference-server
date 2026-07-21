@@ -123,8 +123,13 @@ def decode_tokens(token_ids, vocab, skip_special=True):
         res.append(token)
     return ''.join(res)
 
-# Step 10 - embed_tokens (not yet solved)
-# TODO: implement
+# Step 10 - embed_tokens
+import numpy as np
+
+def embed_tokens(token_ids, embedding_matrix):
+    # TODO: return the (T, D) embedding rows for each token id in token_ids
+    # embedding vector - V * D
+    return np.array([embedding_matrix[token] for token in token_ids]) # T * D
 
 # Step 11 - linear_projection (not yet solved)
 # TODO: implement
