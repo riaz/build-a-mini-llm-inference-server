@@ -227,8 +227,13 @@ def model_decode_step(token_id, cache, params):
 
     return logits, new_cache
 
-# Step 17 - blocks_needed (not yet solved)
-# TODO: implement
+# Step 17 - blocks_needed
+def blocks_needed(num_tokens, block_size):
+    # TODO: return the number of fixed-size blocks needed to store num_tokens tokens.
+    count = num_tokens // block_size
+    if num_tokens % block_size:
+        count += 1
+    return  count
 
 # Step 18 - init_block_allocator (not yet solved)
 # TODO: implement
